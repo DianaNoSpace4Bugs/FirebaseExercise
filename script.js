@@ -99,6 +99,47 @@ getContactsAndDisplay();
       })
       .catch((error) => console.error("Error adding document: ", error));
   };
+
+  //OPCIÓN JAVI PARA BORRAR USUARIO:
+  const deleteUser = () => {
+    const id = prompt('Introduce el ID a borrar');
+    db.collection('profile').doc(id).delete().then(() => {
+      alert(`Documento ${id} ha sido borrado`);
+      //Clean
+      document.getElementById('profile').innerHTML = "";
+      //Read all again
+      readAll();
+    })
+      .catch(() => console.log('Error borrando documento'));
+  };
+
+  //OPCIÓN ALTERNATIVA PARA BORRAR USUARIO:
+
+  const deleteButton = document.getElementById("borrarUsuario");
+
+deleteButton.addEventListener("click", function () {
+
+  const documentoAEliminar = "ID_DEL_DOCUMENTO_A_ELIMINAR";
+
+  db.collection("contactForms")
+    .doc(documentoAEliminar)
+    .delete()
+    .then(() => {
+      console.log("Documento eliminado exitosamente.");
+      
+      getContactsAndDisplay();
+    })
+    .catch((error) => {
+      console.error("Error al eliminar el documento: ", error);
+    });
+});
+
+
+
+
+
+
+
   
 //   document.querySelector("#form1").addEventListener("submit", function (event) {
 //     event.preventDefault();
